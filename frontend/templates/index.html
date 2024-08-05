@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Manager</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="container">
+            <header>
+                <div class="balance">
+                    <span>💰 Balance: <span class="balance-amount">{{ balance }}</span></span>
+                    <a class="add-balance" href="{{ url_for('get_transaction') }}">Change Balance</a>
+                    {% if user %}
+                        <a class="auth-btn" href="{{url_for('logout')}}">Вийти</a>
+                    {% else %}
+                        <a class="auth-btn" href="{{url_for('login')}}">Вхід в аккаунт</a>
+                    {% endif %}
+                </div>
+            </header>
+            <section class="transactions">
+                <h2>Transactions</h2>
+                <div class="filters">
+                    <h3>Filters</h3>
+                    <label for="start-date">Start date</label>
+                    <input type="date" id="start-date" name="start-date" value="{{ start_date }}">
+                    <label for="end-date">End date</label>
+                    <input type="date" id="end-date" name="end-date" value="{{ end_date }}">
+                    <button class="apply">Apply</button>
+                    <button class="clear">Clear</button>
+                </div>
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for operation in operations %}
+                        <tr>
+                            <td>{{ operation.id }}</td>
+                            <td class="{% if operation.amount < 0 %}negative{% else %}positive{% endif %}">{{ operation.amount }}</td>
+                            <td>{{ operation.date }}</td>
+                            <td>{{ operation.category }}</td>
+                            <td>
+                                <button class="edit">✏️</button>
+                                <button class="delete">🗑️</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+            <section class="charts">
+                <div class="chart">
+                    <h3>Balance history</h3>
+                    <div class="chart-content" id="balance-history"></div>
+                </div>
+                <div class="chart">
+                    <h3>Latest incomes</h3>
+                    <div class="chart-content" id="latest-incomes"></div>
+                </div>
+                <div class="chart">
+                    <h3>Latest expenses</h3>
+                    <div class="chart-content" id="latest-expenses"></div>
+                </div>
+                <div class="chart">
+                    <h3>Income vs Expense</h3>
+                    <div class="chart-content" id="income-expense"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

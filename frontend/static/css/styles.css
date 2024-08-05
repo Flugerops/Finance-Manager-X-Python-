@@ -1,0 +1,201 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.balance {
+    display: flex;
+    align-items: center;
+}
+
+.balance-amount {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.add-balance {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-balance {
+    background-color: #28a745;
+    color: #fff;
+}
+
+
+.auth-btn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.auth-btn:hover {
+    background-color: #0056b3;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.transactions {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.transactions h2, .filters h3, .chart h3 {
+    margin: 10px 0;
+    color: #343a40;
+}
+
+.filters {
+    border: 2px solid #007bff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.filters label, .filters input, .filters div {
+    display: block;
+    margin: 5px 0;
+}
+
+.filters input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 5px;
+}
+
+.filters button {
+    margin: 5px 5px 0 0;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filters .apply {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.filters .clear {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.transactions-table th, .transactions-table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+}
+
+.transactions-table th {
+    background-color: #f8f9fa;
+}
+
+.transactions-table .negative {
+    color: #dc3545;
+}
+
+.transactions-table .positive {
+    color: #28a745;
+}
+
+.transactions-table .edit, .transactions-table .delete {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.charts {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.chart {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.chart-content {
+    width: 100%;
+    height: 200px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
