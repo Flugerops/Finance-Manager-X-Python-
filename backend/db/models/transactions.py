@@ -8,7 +8,7 @@ class Transaction(Base):
     __tablename__ = "transactions"
     owner: Mapped[str]
     amount: Mapped[float]
-    date: Mapped[str]
+    date: Mapped[date]
     category: Mapped[str]
     
     

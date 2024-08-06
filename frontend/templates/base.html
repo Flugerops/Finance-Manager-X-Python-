@@ -8,10 +8,8 @@
 </head>
 <body>
     <nav>
-        <ul>
-            
-            <li><a href="#"></a>Home</li> 
-            <li><a href="#"></a></li>
+        <ul>  
+            <li><a href="{{url_for('index')}}">Home</a></li> 
             {% if user %}
                 <li><a href="{{url_for('logout')}}">Log out</a></li>
             {% else %}

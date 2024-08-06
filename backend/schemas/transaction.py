@@ -4,8 +4,7 @@ from typing import Optional
 
 
 class TransData(BaseModel):
-    
     owner: str
     amount: float
-    date: Optional[str] = datetime.now().strftime('%m/%d/%Y')
+    date: Optional[str] = datetime.now().isoformat()
     category: str

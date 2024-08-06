@@ -4,6 +4,8 @@ from flask_login import current_user, login_required
 from frontend.forms import TransactionForm
 from datetime import datetime
 from requests import post
+from werkzeug.exceptions import HTTPException
+
 
 
 @app.get("/change_balance")
