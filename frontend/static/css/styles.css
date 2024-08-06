@@ -1,6 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    font-family: sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,9 +10,10 @@ body {
 }
 
 nav {
-    background-color: #343a40;
+    background-color: #1e1e1e;
     color: #fff;
     padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 nav ul {
@@ -27,13 +29,14 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #bbb;
     text-decoration: none;
     font-weight: bold;
 }
 
 nav ul li a:hover {
     text-decoration: underline;
+    color: #fff;
 }
 
 main {
@@ -47,8 +50,10 @@ main {
     width: 100%;
     max-width: 1200px;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background-color: #1e1e1e;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    margin-top: 20px;
 }
 
 header {
@@ -56,7 +61,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #333;
 }
 
 
@@ -66,7 +71,7 @@ header {
 }
 
 .balance-amount {
-    color: #28a745;
+    color: #66bb6a;
     font-weight: bold;
 }
 
@@ -76,27 +81,34 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #66bb6a;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.add-balance {
-    background-color: #28a745;
-    color: #fff;
+.add-balance:hover {
+    background-color: #57a65a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 
 .auth-btn {
     margin-left: 10px;
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #42a5f5;
     color: #fff;
     border: none;
     border-radius: 5px;
     text-decoration: none;
     display: inline-block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .auth-btn:hover {
-    background-color: #0056b3;
+    background-color: #1e88e5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .content {
@@ -112,14 +124,16 @@ header {
 
 .transactions h2, .filters h3, .chart h3 {
     margin: 10px 0;
-    color: #343a40;
+    color: #e0e0e0;
 }
 
 .filters {
-    border: 2px solid #007bff;
+    border: 2px solid #42a5f5;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .filters label, .filters input, .filters div {
@@ -130,6 +144,10 @@ header {
 .filters input[type="date"] {
     width: calc(100% - 20px);
     padding: 5px;
+    background-color: #2c2c2c;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
 }
 
 .filters button {
@@ -138,16 +156,25 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .filters .apply {
-    background-color: #28a745;
-    color: #fff;
+    background-color: #66bb6a;
+}
+
+.filters .apply:hover {
+    background-color: #57a65a;
 }
 
 .filters .clear {
-    background-color: #dc3545;
-    color: #fff;
+    background-color: #ef5350;
+}
+
+.filters .clear:hover {
+    background-color: #e53935;
 }
 
 .transactions-table {
@@ -157,27 +184,33 @@ header {
 }
 
 .transactions-table th, .transactions-table td {
-    border: 1px solid #dee2e6;
+    border: 1px solid #555;
     padding: 8px;
     text-align: left;
 }
 
 .transactions-table th {
-    background-color: #f8f9fa;
+    background-color: #2c2c2c;
 }
 
 .transactions-table .negative {
-    color: #dc3545;
+    color: #ef5350;
 }
 
 .transactions-table .positive {
-    color: #28a745;
+    color: #66bb6a;
 }
 
 .transactions-table .edit, .transactions-table .delete {
     border: none;
     background: none;
     cursor: pointer;
+    color: #42a5f5;
+    transition: color 0.3s;
+}
+
+.transactions-table .edit:hover, .transactions-table .delete:hover {
+    color: #1e88e5;
 }
 
 .charts {
@@ -188,14 +221,16 @@ header {
 }
 
 .chart {
-    border: 1px solid #dee2e6;
+    border: 1px solid #555;
     border-radius: 5px;
     padding: 10px;
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .chart-content {
     width: 100%;
     height: 200px;
-    background-color: #e9ecef;
+    background-color: #2c2c2c;
     border-radius: 5px;
 }

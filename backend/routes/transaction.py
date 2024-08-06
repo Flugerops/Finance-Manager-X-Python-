@@ -1,7 +1,7 @@
 from .. import app
-from sqlalchemy import select, update
+from sqlalchemy import select, update, and_
 from backend.db import Transaction, Wallet, Session
-from backend.schemas import TransData, WalletData, UserData, TransAdd
+from backend.schemas import TransData, WalletData, UserData, TransAdd, Filtered
 from datetime import datetime
 from fastapi.exceptions import HTTPException
 
@@ -41,5 +41,14 @@ def trans_list(data: UserData):
         if transactions != None:
             transactions = [TransData.model_validate(item) for item in transactions]
             return transactions
-        # print(transactions[0].category)г
         return transactions
+    
+
+@app.post("/filters")
+def filters(data: Filtered):
+    with Session.begin() as session:
+        start_date = data.start_date
+        end_date = data.end_date
+        filtered = session.query(Transaction).filter(Transaction.date.between(start_date, end_date)).filter(Transaction.owner == data.owner)
+        filtered = [TransData.model_validate(item) for item in filtered]
+        return filtered

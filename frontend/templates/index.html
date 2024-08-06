@@ -20,23 +20,23 @@
                     <span>💰 Balance: <span class="balance-amount">{{ balance }}</span></span>
                     <a class="add-balance" href="{{ url_for('get_transaction') }}">Change Balance</a>
                     {% if user %}
-                        <a class="auth-btn" href="{{url_for('logout')}}">Вийти</a>
+                        <a class="auth-btn" href="{{url_for('logout')}}">Log Out</a>
                     {% else %}
-                        <a class="auth-btn" href="{{url_for('login')}}">Вхід в аккаунт</a>
+                        <a class="auth-btn" href="{{url_for('login')}}">Log In</a>
                     {% endif %}
                 </div>
             </header>
             <section class="transactions">
                 <h2>Transactions</h2>
-                <div class="filters">
+                <form class="filters" method="post">
                     <h3>Filters</h3>
                     <label for="start-date">Start date</label>
                     <input type="date" id="start-date" name="start-date" value="{{ start_date }}">
                     <label for="end-date">End date</label>
                     <input type="date" id="end-date" name="end-date" value="{{ end_date }}">
-                    <button class="apply">Apply</button>
-                    <button class="clear">Clear</button>
-                </div>
+                    <button class="apply" type="submit" name="action" value="apply">Apply</button>
+                    <button class="clear" type="submit" name="action" value="reset">Clear</button>
+                </form>
                 <table class="transactions-table">
                     <thead>
                         <tr>
@@ -44,17 +44,17 @@
                             <th>Amount</th>
                             <th>Date</th>
                             <th>Category</th>
+                            <th>Controls</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in transactions %}
+                        {% for item in transactions | reverse %}
                         <tr>
-                            <td>{{ item.id }}</td>
+                            <td>{{ transactions | length - loop.index + 1 }}</td>
                             <td class="{% if item.amount < 0 %}negative{% else %}positive{% endif %}">{{ item.amount }}</td>
                             <td>{{ item.date }}</td>
                             <td>{{ item.category }}</td>
                             <td>
-                                <button class="edit">✏️</button>
                                 <button class="delete">🗑️</button>
                             </td>
                         </tr>
