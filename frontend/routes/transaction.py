@@ -3,8 +3,7 @@ from flask import render_template, redirect, url_for
 from flask_login import current_user, login_required
 from frontend.forms import TransactionForm
 from datetime import datetime
-from requests import post
-from werkzeug.exceptions import HTTPException
+from requests import post, get
 
 
 
@@ -30,3 +29,4 @@ def post_transcation():
             return redirect(url_for("index"))
         else:
             return(f"Error {response.status_code} {response.json().get("detail")}")
+        

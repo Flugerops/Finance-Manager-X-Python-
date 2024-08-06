@@ -47,12 +47,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for operation in operations %}
+                        {% for item in transactions %}
                         <tr>
-                            <td>{{ operation.id }}</td>
-                            <td class="{% if operation.amount < 0 %}negative{% else %}positive{% endif %}">{{ operation.amount }}</td>
-                            <td>{{ operation.date }}</td>
-                            <td>{{ operation.category }}</td>
+                            <td>{{ item.id }}</td>
+                            <td class="{% if item.amount < 0 %}negative{% else %}positive{% endif %}">{{ item.amount }}</td>
+                            <td>{{ item.date }}</td>
+                            <td>{{ item.category }}</td>
                             <td>
                                 <button class="edit">✏️</button>
                                 <button class="delete">🗑️</button>

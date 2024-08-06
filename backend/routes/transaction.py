@@ -1,7 +1,7 @@
 from .. import app
 from sqlalchemy import select, update
 from backend.db import Transaction, Wallet, Session
-from backend.schemas import TransData, WalletData, UserData
+from backend.schemas import TransData, WalletData, UserData, TransAdd
 from datetime import datetime
 from fastapi.exceptions import HTTPException
 
@@ -21,7 +21,7 @@ def reg_user(data: WalletData):
 
 
 @app.post("/change_balance")
-def add_income(data: TransData):
+def add_income(data: TransAdd):
     with Session.begin() as session:
         data.date = datetime.fromisoformat(data.date)
         income = Transaction(**data.model_dump())
@@ -34,3 +34,12 @@ def add_income(data: TransData):
         session.execute(upd)
         
 
+@app.get("/get_trans")
+def trans_list(data: UserData):
+    with Session.begin() as session:
+        transactions = session.scalars(select(Transaction).where(Transaction.owner == data.user)).all()
+        if transactions != None:
+            transactions = [TransData.model_validate(item) for item in transactions]
+            return transactions
+        # print(transactions[0].category)г
+        return transactions
