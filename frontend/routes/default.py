@@ -2,7 +2,7 @@ from .. import app
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_required
 from requests import get, post
-
+from datetime import datetime
 
 
 @app.get("/")
@@ -30,10 +30,18 @@ def filter():
         "user": user
     }
     balance = get("http://127.0.0.1:8000/balance", json=data)
+    try: 
+        start_date = request.form.get('start-date')
+    except:
+        redirect(url_for("index"))
+    end_date = request.form.get('end-date')
+    if not end_date:
+        end_date = datetime.now().isoformat()
+    
     data = {
         "owner": user,
-        "start_date": request.form.get('start-date'),
-        "end_date": request.form.get('end-date')
+        "start_date": start_date,
+        "end_date": end_date
     }
     filtered = {
         "transactions": post("http://127.0.0.1:8000/filters", json=data).json()
