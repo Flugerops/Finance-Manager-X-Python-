@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Manager</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <header>
+                <div class="balance">
+                    <span>💰 Balance: <span class="balance-amount">{{ balance }}</span></span>
+                    <a class="add-balance" href="{{ url_for('get_transaction') }}">Change Balance</a>
+                    {% if user %}
+                        <a class="auth-btn" href="{{url_for('logout')}}">Log Out</a>
+                    {% else %}
+                        <a class="auth-btn" href="{{url_for('login')}}">Log In</a>
+                    {% endif %}
+                </div>
+            </header>
+            <div class="section-btn-container">
+                <a class="section-btn" href="{{ url_for('index') }}">Transactions</a>
+                <a class="disabled-btn" href="{{ url_for('charts') }}">Charts</a>
+            </div>
+            <section class="charts">
+                
+                <div class="chart">
+                    <h3>Balance history</h3>
+                    <div class="chart-content" id="balance-history"></div>
+                </div>
+                <div class="chart">
+                    <h3>Latest incomes</h3>
+                    <div class="chart-content" id="latest-incomes"></div>
+                </div>
+                <div class="chart">
+                    <h3>Latest expenses</h3>
+                    <div class="chart-content" id="latest-expenses"></div>
+                </div>
+                <div class="chart">
+                    <h3>Income vs Expense</h3>
+                    <div class="chart-content" id="income-expense"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-        </ul>
-    </nav>
     <main>
         <div class="container">
             <header>
@@ -27,7 +21,10 @@
                 </div>
             </header>
             <section class="transactions">
-                <h2>Transactions</h2>
+                <div class="section-btn-container">
+                    <a class="disabled-btn" href="{{ url_for('index') }}">Transactions</a>
+                    <a class="section-btn" href="{{ url_for('charts') }}">Charts</a>
+                </div>
                 <form class="filters" method="post">
                     <h3>Filters</h3>
                     <label for="start-date">Start date</label>
@@ -61,24 +58,6 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </section>
-            <section class="charts">
-                <div class="chart">
-                    <h3>Balance history</h3>
-                    <div class="chart-content" id="balance-history"></div>
-                </div>
-                <div class="chart">
-                    <h3>Latest incomes</h3>
-                    <div class="chart-content" id="latest-incomes"></div>
-                </div>
-                <div class="chart">
-                    <h3>Latest expenses</h3>
-                    <div class="chart-content" id="latest-expenses"></div>
-                </div>
-                <div class="chart">
-                    <h3>Income vs Expense</h3>
-                    <div class="chart-content" id="income-expense"></div>
-                </div>
             </section>
         </div>
     </main>

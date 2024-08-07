@@ -11,7 +11,8 @@ from requests import post, get
 @login_required
 def get_transaction():
     form = TransactionForm()
-    return render_template("income.html", form=form)
+    user = current_user.nickname
+    return render_template("income.html", form=form, user=user)
 
 
 @app.post("/change_balance")
