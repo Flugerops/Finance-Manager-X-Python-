@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance Manager</title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <main>
@@ -25,25 +26,83 @@
                 <a class="disabled-btn" href="{{ url_for('charts') }}">Charts</a>
             </div>
             <section class="charts">
-                
-                <div class="chart">
-                    <h3>Balance history</h3>
-                    <div class="chart-content" id="balance-history"></div>
-                </div>
+
                 <div class="chart">
                     <h3>Latest incomes</h3>
-                    <div class="chart-content" id="latest-incomes"></div>
-                </div>
-                <div class="chart">
-                    <h3>Latest expenses</h3>
-                    <div class="chart-content" id="latest-expenses"></div>
+                    <canvas id="incChart"></canvas>
                 </div>
                 <div class="chart">
                     <h3>Income vs Expense</h3>
-                    <div class="chart-content" id="income-expense"></div>
+                    <canvas id="versusChart">
+                </div>
+                <div class="chart">
+                    <h3>Latest expenses</h3>
+                    <canvas id="expChart"></canvas>
                 </div>
             </section>
         </div>
     </main>
+    <script>
+        const incomes = document.getElementById('incChart');
+        
+        const Incomes = new Chart(incomes, {
+          type: 'bar',
+          data: {
+            labels: {{ labels | tojson }},
+            datasets: [{
+              label: 'Incomes',
+              data: {{ incomes | tojson }},
+              backgroundColor: '#279e03',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        const expenses = document.getElementById('expChart');
+        
+        const Expenses = new Chart(expenses, {
+          type: 'bar',
+          data: {
+            labels: {{ labels | tojson }},
+            datasets: [{
+              label: 'Expenses',
+              data: {{ expenses | tojson }},
+              backgroundColor: '#9e032a',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+        
+        const incvsexs = document.getElementById('versusChart');
+
+
+        const IncVsExp = new Chart(incvsexs, {
+          type: 'pie',
+          data: {
+            labels: ['Income', 'Expense'],
+            datasets: [{
+              label: 'Incomes vs Expanses',
+              data: [{{ incomes_sum | tojson  }}, {{ expenses_sum | tojson }}],
+              backgroundColor: ['#279e03', '#9e032a'],
+              borderWidth: 1
+            }]
+          },
+          
+        });
+      </script>
 </body>
 </html>

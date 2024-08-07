@@ -28,7 +28,7 @@ def add_income(data: TransAdd):
         session.add(income)
         wallet = session.scalar(select(Wallet).where(Wallet.owner == data.owner))
         balance = wallet.balance + data.amount
-        if balance > 0 and balance < 5:
+        if balance >= 0 and balance <= 5:
             raise HTTPException(417, detail="you can't exceed the unreachable reserve")
         if balance < 0:
             raise HTTPException(417, detail="You haven`t enough money for that")
