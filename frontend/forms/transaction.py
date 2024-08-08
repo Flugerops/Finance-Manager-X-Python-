@@ -2,14 +2,14 @@ from flask_wtf import FlaskForm
 from wtforms import (
     FloatField,
     StringField,
-    SubmitField
+    SubmitField,
+    ValidationError
 )
 from wtforms.validators import (
     DataRequired,
     EqualTo,
-    Length,
+    Length
 )
-
 
 
 class TransactionForm(FlaskForm):

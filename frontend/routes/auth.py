@@ -46,7 +46,7 @@ def register_post():
                 
             }
             session.add(user)
-            response = post("http://127.0.0.1:8000/user_reg", json=data)
+            response = post("http://backend:8000/user_reg", json=data)
             if response.status_code == 200:
                 return redirect(url_for("index"))
             else:

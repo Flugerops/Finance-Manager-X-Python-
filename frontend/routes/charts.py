@@ -11,8 +11,8 @@ def charts():
     data = {
         "user": user
     }
-    balance = get("http://127.0.0.1:8000/balance", json=data).json()
-    transactions = get("http://127.0.0.1:8000/get_trans", json=data).json()
+    balance = get("http://backend:8000/balance", json=data).json()
+    transactions = get("http://backend:8000/get_trans", json=data).json()
     data = [(item.get("date"), item.get("amount")) for item in transactions]
     labels = [row[0] for row in data]
     values = [row[1] for row in data]

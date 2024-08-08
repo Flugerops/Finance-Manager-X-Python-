@@ -18,7 +18,12 @@ class TransData(BaseModel):
     date: date
     category: str
     
+    
 class Filtered(BaseModel):
     owner: str
     start_date: str
     end_date: str
+    
+    
+class TransId(BaseModel):
+    id: int

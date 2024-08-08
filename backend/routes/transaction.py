@@ -1,7 +1,7 @@
-from .. import app
+from main import app
 from sqlalchemy import select, update, and_
-from backend.db import Transaction, Wallet, Session
-from backend.schemas import TransData, WalletData, UserData, TransAdd, Filtered
+from db import Transaction, Wallet, Session
+from schemas import TransData, WalletData, UserData, TransAdd, Filtered, TransId
 from datetime import datetime
 from fastapi.exceptions import HTTPException
 
@@ -54,3 +54,9 @@ def filters(data: Filtered):
         filtered = session.query(Transaction).filter(Transaction.date.between(start_date, end_date)).filter(Transaction.owner == data.owner)
         filtered = [TransData.model_validate(item) for item in filtered]
         return filtered
+    
+
+@app.delete("/undo_trans")
+def delete_trans(data: TransId):
+    with Session.begin() as session:
+        transaction = session.scalar(select(Transaction).where(Transaction.id == data.id))

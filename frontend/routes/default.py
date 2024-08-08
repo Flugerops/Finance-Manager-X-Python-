@@ -13,9 +13,9 @@ def index():
     data = {
         "user": user
     }
-    balance = get("http://127.0.0.1:8000/balance", json=data)
+    balance = get("http://backend:8000/balance", json=data)
     transactions = {
-        "transactions": get("http://127.0.0.1:8000/get_trans", json=data).json()
+        "transactions": get("http://backend:8000/get_trans", json=data).json()
     }
     return render_template("index.html", **transactions, user=user, balance=balance.json())
 
@@ -30,7 +30,7 @@ def filter():
     data = {
         "user": user
     }
-    balance = get("http://127.0.0.1:8000/balance", json=data)
+    balance = get("http://backend:8000/balance", json=data)
     try: 
         start_date = request.form.get('start-date')
     except:
@@ -45,7 +45,7 @@ def filter():
         "end_date": end_date
     }
     filtered = {
-        "transactions": post("http://127.0.0.1:8000/filters", json=data).json()
+        "transactions": post("http://backend:8000/filters", json=data).json()
     }
     
     return render_template("index.html", **filtered, user=user, balance=balance.json())
