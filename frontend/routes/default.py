@@ -5,7 +5,6 @@ from requests import get, post
 from datetime import datetime
 
 
-
 @app.get("/")
 @login_required
 def index():
@@ -31,14 +30,14 @@ def filter():
         "user": user
     }
     balance = get("http://backend:8000/balance", json=data)
-    try: 
+    try:
         start_date = request.form.get('start-date')
     except:
         redirect(url_for("index"))
     end_date = request.form.get('end-date')
     if not end_date:
         end_date = datetime.now().isoformat()
-    
+
     data = {
         "owner": user,
         "start_date": start_date,
@@ -47,5 +46,4 @@ def filter():
     filtered = {
         "transactions": post("http://backend:8000/filters", json=data).json()
     }
-    
     return render_template("index.html", **filtered, user=user, balance=balance.json())

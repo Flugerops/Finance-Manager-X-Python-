@@ -91,15 +91,23 @@
 
 
         const IncVsExp = new Chart(incvsexs, {
-          type: 'pie',
+          type: 'line',
           data: {
-            labels: ['Income', 'Expense'],
-            datasets: [{
-              label: 'Incomes vs Expanses',
-              data: [{{ incomes_sum | tojson  }}, {{ expenses_sum | tojson }}],
-              backgroundColor: ['#279e03', '#9e032a'],
-              borderWidth: 1
-            }]
+            labels: {{ labels | tojson }},
+            datasets: [
+            {
+              label: 'Income',
+              data: {{ incomes | tojson }},
+              borderColor: "#279e03",
+              backgroundColor: "#279e03",
+            },
+            {
+              label: 'Expense',
+              data: {{ expenses | tojson }},
+              borderColor: "#9e032a",
+              backgroundColor: "#9e032a",
+            }
+          ]
           },
           
         });

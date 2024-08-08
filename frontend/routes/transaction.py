@@ -30,18 +30,20 @@ def post_transcation():
         if response.status_code == 200:
             return redirect(url_for("index"))
         else:
-            return (f"Error {response.status_code} {response.json().get('detail')}")
+            detail = response.json().get('detail')
+            return render_template("error.html", error=response.status_code, detail=detail)
     return render_template("income.html", form=form, user=current_user.nickname)
 
 
 @app.get("/delete/<int:trans_id>")
 @login_required
 def delete_trans(trans_id):
-    data={
+    data = {
         "id": trans_id,
         "owner": current_user.nickname
     }
-    deleted_trans = delete("http://backend:8000/undo_trans", json=data)
-    if deleted_trans.status_code == 200:
+    remove_trans = delete("http://backend:8000/undo_trans", json=data)
+    if remove_trans.status_code == 200:
         return redirect(url_for("index"))
-    return(f"Error {deleted_trans.status_code}")
+    detail = remove_trans.json().get('detail')
+    return render_template("error.html", error=remove_trans.status_code, detail=detail)

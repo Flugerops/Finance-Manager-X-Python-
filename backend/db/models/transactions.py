@@ -10,5 +10,3 @@ class Transaction(Base):
     amount: Mapped[float]
     date: Mapped[date]
     category: Mapped[str]
-    
-    

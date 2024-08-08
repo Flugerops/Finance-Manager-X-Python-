@@ -17,15 +17,14 @@ class TransData(BaseModel):
     amount: float
     date: date
     category: str
-    
-    
+
+
 class Filtered(BaseModel):
     owner: str
     start_date: str
     end_date: str
-    
-    
+
+
 class TransDel(BaseModel):
     id: int
     owner: str
-    

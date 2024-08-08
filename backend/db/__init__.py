@@ -13,12 +13,10 @@ class Base(DeclarativeBase):
 def up():
     Base.metadata.create_all(engine)
 
+
 def down():
     Base.metadata.drop_all(engine)
-    
-    
+
 from .models import Transaction, Wallet
-    
-    
 
 up()
