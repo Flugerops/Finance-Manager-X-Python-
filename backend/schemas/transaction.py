@@ -25,5 +25,7 @@ class Filtered(BaseModel):
     end_date: str
     
     
-class TransId(BaseModel):
+class TransDel(BaseModel):
     id: int
+    owner: str
+    

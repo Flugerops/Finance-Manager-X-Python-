@@ -18,7 +18,7 @@ def charts():
     values = [row[1] for row in data]
     incomes = [value for value in values if value > 0]
     expenses = [abs(value) for value in values if value < 0]
-    incomes_sum = sum(incomes)
+    incomes_sum = sum(incomes) - sum(expenses)
     expenses_sum = sum(expenses)
     return render_template(
         "charts.html", user=user, balance=balance, labels=labels, values=values, incomes=incomes, 

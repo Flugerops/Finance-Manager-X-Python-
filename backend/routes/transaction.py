@@ -1,7 +1,7 @@
 from main import app
 from sqlalchemy import select, update, and_
 from db import Transaction, Wallet, Session
-from schemas import TransData, WalletData, UserData, TransAdd, Filtered, TransId
+from schemas import TransData, WalletData, UserData, TransAdd, Filtered, TransDel
 from datetime import datetime
 from fastapi.exceptions import HTTPException
 
@@ -28,7 +28,7 @@ def add_income(data: TransAdd):
         session.add(income)
         wallet = session.scalar(select(Wallet).where(Wallet.owner == data.owner))
         balance = wallet.balance + data.amount
-        if balance >= 0 and balance <= 5:
+        if balance >= 0 and balance <= 5 and data.amount < 0:
             raise HTTPException(417, detail="you can't exceed the unreachable reserve")
         if balance < 0:
             raise HTTPException(417, detail="You haven`t enough money for that")
@@ -57,6 +57,17 @@ def filters(data: Filtered):
     
 
 @app.delete("/undo_trans")
-def delete_trans(data: TransId):
+def delete_trans(data: TransDel):
     with Session.begin() as session:
         transaction = session.scalar(select(Transaction).where(Transaction.id == data.id))
+        if data.owner != transaction.owner:
+            raise HTTPException(status_code=403, detail="Permission denied")
+        balance = session.scalar(select(Wallet).where(Wallet.owner == data.owner))
+        if transaction.amount > 0:
+            balance.balance -= transaction.amount
+        elif transaction.amount < 0:
+            balance.balance -= transaction.amount
+        upd = update(Wallet).where(Wallet.owner == data.owner).values(balance=balance.balance)
+        session.delete(transaction)
+        session.execute(upd)
+        return "Transaction deleted"

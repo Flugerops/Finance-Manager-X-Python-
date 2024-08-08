@@ -62,6 +62,7 @@
                 <th>Amount</th>
                 <th>Date</th>
                 <th>Category</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -75,6 +76,9 @@
                 </td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.category }}</td>
+                <td>
+                  <a class="delete", href="{{ url_for('delete_trans', trans_id=item.id) }} ">🗑️</a>
+              </td>
               </tr>
               {% endfor %}
             </tbody>
