@@ -1,0 +1,9 @@
+flask
+requests
+flask_login
+Flask-WTF
+WTForms
+python-dotenv
+wtforms-validators
+sqlalchemy
+flask-testing
