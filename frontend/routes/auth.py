@@ -43,14 +43,14 @@ def register_post():
             )
             data = {
                 "owner": form.nickname.data
-                
+
             }
             session.add(user)
             response = post("http://backend:8000/user_reg", json=data)
             if response.status_code == 200:
                 return redirect(url_for("index"))
             else:
-                return response.status_code
+                return redirect(url_for("index"))
     return render_template('register.html', form=form)
 
 

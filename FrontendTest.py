@@ -1,36 +1,62 @@
 import functools
 import unittest
+from flask import url_for
+from flask_login import current_user, login_user
+from flask_testing import TestCase
+from datetime import datetime
 from frontend import app
-from flask.testing import FlaskClient
+from frontend.db import Base, engine, Session, User
 
 
-def force_login(user_id=None):
-    def inner(f):
-        @functools.wraps(f)
-        def wrapper(*args, **kwargs):
-            if user_id:
-                for key, val in kwargs.items():
-                    if isinstance(val, FlaskClient):
-                        with val:
-                            with val.session_transaction() as sess:
-                                sess['_user_id'] = user_id
-                            return f(*args, **kwargs)
-            return f(*args, **kwargs)
-
-        return wrapper
-
-    return inner
-
-class FrontendUnitTest(unittest.TestCase):
+class BaseTestCase(TestCase):
     
+    def create_app(self):
+        return app
+
     def setUp(self):
-        self.app = app.test_client()
-            
-    @force_login(user_id=0)
+        Base.metadata.create_all(engine)
+        self.session = Session()
+        user = User(nickname="admin", password=1234)
+        self.session.add(user)
+        self.session.commit()
+
+    def tearDown(self):
+        self.session.close()
+        Base.metadata.drop_all(engine)
+
+
+class FrontendUnitTest(BaseTestCase):
+
+    def test_login(self):
+        with self.client:
+            response = self.client.post(
+                "/login", data=dict(nickname="admin", password=1234))
+            self.assert200(response)
+
     def test_index(self):
-        response = self.app.get("/")
-        self.assertEqual(response.status_code, 200)
+        with self.client:
+            login_user(self.session.query(User).where(User.nickname == "admin").first())
+            print(current_user.nickname)
+            index = self.client.get("/")
+            self.assert200(index)
 
-
+    def test_clear_filters(self):
+        with self.client:
+            login_user(self.session.query(User).where(User.nickname == "admin").first())
+            filters = self.client.post("/", data={"action": "apply", "start-date": datetime.now().isoformat()})
+            self.assert200(filters)
+    
+    def test_charts(self):
+        with self.client:
+            login_user(self.session.query(User).where(User.nickname == "admin").first())
+            charts = self.client.get("/charts")
+            self.assert200(charts)
+    
+    def test_registration(self):
+        with self.client:
+            registration = self.client.post("/register", data={"nickname": "register", "password": 1234})
+            self.assert200(registration)
+            
+            
 if __name__ == "__main__":
     unittest.main()

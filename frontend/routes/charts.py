@@ -11,8 +11,14 @@ def charts():
     data = {
         "user": user
     }
-    balance = get("http://backend:8000/balance", json=data).json()
-    transactions = get("http://backend:8000/get_trans", json=data).json()
+    try:
+        balance = get("http://backend:8000/balance", json=data).json()
+    except:
+        balance = 0
+    try:
+        transactions = get("http://backend:8000/get_trans", json=data).json()
+    except:
+        transactions = {}
     data = [(item.get("date"), item.get("amount")) for item in transactions]
     labels = [row[0] for row in data]
     values = [row[1] for row in data]
